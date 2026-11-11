@@ -1,0 +1,63 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature android:name="android.hardware.type.automotive" android:required="false" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE" />
+    <uses-permission android:name="pleos.car.permission.NAVI_CUSTOM_MAP" />
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+    <!-- 옆자리 안내: 부를 때만 듣기(기기 안 인식), 먼저 알림용 차 신호, 김 서림 제거 켜기. 모두 normal 권한이다. -->
+    <uses-permission android:name="pleos.car.permission.STT_SERVICE" />
+    <!-- 음성 인식 SDK가 INTERNET을 붙여 오지만 기기 안 인식(ON_DEVICE)만 쓰므로 뺀다. 에뮬레이터에서 빼고도 인식 길이 도는 것을 봤다. -->
+    <uses-permission android:name="android.permission.INTERNET" tools:node="remove" />
+    <uses-permission android:name="pleos.car.permission.CAR_ENERGY" />
+    <uses-permission android:name="pleos.car.permission.CAR_WINDOWS" />
+    <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />
+    <uses-permission android:name="pleos.car.permission.CAR_CLIMATE" />
+    <uses-permission android:name="pleos.car.permission.CAR_LIGHTS" />
+    <uses-permission android:name="android.car.permission.CAR_EXTERIOR_ENVIRONMENT" />
+    <uses-permission android:name="pleos.car.permission.CONTROL_CAR_CLIMATE" />
+
+    <queries>
+        <package android:name="app.passengerace.navsim" />
+    </queries>
+
+    <application
+        android:label="조수석 에이스"
+        android:allowBackup="false"
+        android:theme="@android:style/Theme.Material.NoActionBar">
+
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="distractionOptimized" android:value="true" />
+        </activity>
+
+        <service
+            android:name=".StoryService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+            <!-- 자기 화면이 있는 앱은 이 표시가 없으면 차 미디어 위젯이 소스에서 뺀다(에뮬레이터 MediaSourceUtil 로그). -->
+            <meta-data android:name="androidx.car.app.launchable" android:value="true" />
+        </service>
+
+        <!-- 차 음성 비서 명령(assets/schema.json). -->
+        <receiver android:name=".HelpReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="ASK_ROAD_HELP" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

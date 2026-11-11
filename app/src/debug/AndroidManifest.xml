@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- 시험용 신호 입구다. 아무 앱이나 보낼 수 있어서 debug 빌드에만 둔다. -->
+        <receiver android:name=".SampleSignalsReceiver" android:exported="true" />
+    </application>
+</manifest>

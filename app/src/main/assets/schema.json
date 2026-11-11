@@ -1,0 +1,25 @@
+{
+  "packageName": "app.passengerace",
+  "appDescription": "A story app for solo drivers that also answers common driving problems with prepared, source-checked advice.",
+  "version": "0.1",
+  "actionCalls": [
+    {
+      "type": "function",
+      "function": {
+        "name": "ASK_ROAD_HELP",
+        "description": "Answer a problem the driver is facing on the road now with prepared safety advice.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "topic": {
+              "type": "string",
+              "description": "The driver's problem in Korean, in the driver's own words."
+            }
+          },
+          "required": ["topic"]
+        },
+        "component": "service"
+      }
+    }
+  ]
+}
