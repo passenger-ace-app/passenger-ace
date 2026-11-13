@@ -6,6 +6,7 @@
 - 내비가 말하면 멈추고, 안내가 끝나면 끊긴 문장 처음부터 다시 읽습니다.
 - 갈림길 미리 알림: 내비 회전 안내(NaviHelper `onTBTInfo`)를 받아 큰 갈림길 전에 한 번 말합니다.
 - 옆자리 안내: 정차 중 "물어보기"로 김 서림·폭우 같은 상황을 물으면 답하고, "네"라고 하면 앞유리 김 서림 제거를 켭니다. 주행 중에는 연료 부족, 전조등, 깜빡이 같은 상황을 먼저 말합니다.
+- 차 음성 비서(Gleo Interface): `app/src/main/assets/schema.json`에 길 문제 묻기(`ASK_ROAD_HELP`)를 등록했습니다. 이야기가 켜져 있을 때 비서가 부르면 앱이 준비된 답을 녹음으로 말합니다.
 
 ## APK
 
@@ -37,7 +38,7 @@
 
 | 항목 | 값 |
 |---|---|
-| 에뮬레이터 | Pleos Connect 에뮬레이터(Android Automotive, API 34), 화면 2560x1440 |
+| 에뮬레이터 | Pleos Connect 에뮬레이터 `release_connect_v2.1.0`(시스템 이미지 pleos_car_emulator x86_64 Rev.1, Android Automotive API 34), 화면 2560x1440, 160dpi |
 | 빌드 | Windows 11, JDK 21, Gradle 8.14.3, compileSdk 35, minSdk 29 |
 | SDK | Pleos Connect SDK: NaviHelper 3.0.5, SpeechToText 3.3.1, Vehicle 2.3.2 |
 | 단위 시험 | 141개(`./gradlew testDebugUnitTest`) |
